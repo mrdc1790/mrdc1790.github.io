@@ -174,34 +174,37 @@
 
         <article class="featured-project" aria-labelledby="library-title">
           <div class="project-story">
-            <p class="project-kicker">Local catalogs &amp; data exploration</p>
+            <p class="project-kicker">Featured project / Local SQLite catalog</p>
             <h3 id="library-title">Personal Music Library</h3>
             <p class="project-summary">
-              A collection you can inspect and keep.
+              A local database for Spotify playlists and Liked Songs.
             </p>
             <dl class="project-outcomes">
               <div>
                 <dt>The problem</dt>
                 <dd>
-                  Finding a song is easy. Finding every playlist it appears in
-                  or explaining what changed between captures is harder.
+                  I wanted to know where a track appears, which playlists overlap,
+                  and what changed since the last capture, even when a song
+                  appears more than once.
                 </dd>
               </div>
               <div>
                 <dt>My contribution</dt>
                 <dd>
-                  Developing a Python/SQLite catalog with resumable captures,
-                  local queries, occurrence history, and a read-only browser
-                  viewer. Saved playlist comparisons support column-level
-                  sorting and filtering, including numeric duration filters.
+                  I built a Python and SQLite catalog with resumable captures for
+                  selected playlists or a wider audit. In the offline browser
+                  explorer, I can open a track, see every saved placement for
+                  that track ID, and filter playlist comparisons by fields
+                  such as duration and release date.
                 </dd>
               </div>
               <div>
                 <dt>The result</dt>
                 <dd>
-                  The offline demo finds playlist overlaps, identifies a removed
-                  duplicate placement, exports CSVs, and restores its backup. It
-                  runs without a Spotify account.
+                  In the offline demo, two playlists share Moonrise. A later
+                  capture shows that one duplicate placement disappeared while
+                  another remained. The demo also exports CSVs and restores a
+                  SQLite backup. It runs without a Spotify account.
                 </dd>
               </div>
             </dl>
@@ -219,20 +222,31 @@
                 class="text-link"
                 href="https://github.com/mrdc1790/personal-music-library/blob/main/docs/PROJECT_OVERVIEW.md"
                 >Technical case study</a
+              ><a
+                class="text-link"
+                href="https://github.com/mrdc1790/personal-music-library/blob/main/docs/EXAMPLES.md"
+                >Run the offline demo</a
               >
             </div>
             <details class="project-detail">
-              <summary>Engineering decisions</summary>
+              <summary>Data model and newer workflows</summary>
               <div>
                 <p>
-                  Each playlist placement is evidence. The catalog keeps source,
-                  position, snapshot history, local-track references, and gaps
-                  in coverage instead of flattening everything into a list of
-                  song IDs.
+                  The catalog stores positions and duplicate placements separately
+                  from track identity. It records capture gaps so a missing
+                  playlist read stays unknown. Spotify capture and offline
+                  querying are separate steps.
                 </p>
                 <p>
-                  Richer recording matching and DJ-oriented enrichment remain
-                  future work.
+                  A separate MusicBrainz lookup step caches matched recording genre
+                  tags for later offline use. Personal ratings are keyed to
+                  the exact catalog identity and saved to SQLite by importing
+                  an exported ratings file. Reviewed local audio paths and
+                  available file tags can also appear in comparisons.
+                </p>
+                <p>
+                  <a class="text-link" href="https://github.com/mrdc1790/personal-music-library/blob/main/docs/METADATA.md">Metadata guide</a>
+                  <a class="text-link" href="https://github.com/mrdc1790/personal-music-library/blob/main/docs/ROADMAP.md">Roadmap</a>
                 </p>
               </div>
             </details>
@@ -253,8 +267,8 @@
                 decoding="async"
             /></a>
             <figcaption>
-              Actual catalog viewer, using the project’s fictional offline
-              dataset. Open the image for a larger view.
+              Catalog viewer with the fictional offline dataset. Each row is
+              one saved placement. Open the image for a larger view.
             </figcaption>
           </figure>
         </article>
@@ -263,7 +277,8 @@
           <summary>Try a small playlist comparison</summary>
           <p>
             Explore union, intersection, and difference with fictional tracks.
-            This example runs entirely in your browser.
+            This portfolio example runs entirely in your browser. The full
+            project demo runs locally from the repository.
           </p>
           <div class="library-demo">
             <div class="demo-chrome">
